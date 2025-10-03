@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/main}">
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <!-- CỘT DANH MỤC CHO USER -->
+        <div class="col-md-3">
+            <h2>Categories</h2>
+            <ul id="user-category-list" class="list-group">
+                <li class="list-group-item list-group-item-action active" style="cursor: pointer;">All Products</li>
+                <!-- Danh mục sẽ được render vào đây bằng JS -->
+            </ul>
+        </div>
+
+        <!-- CỘT SẢN PHẨM CHO USER -->
+        <div class="col-md-9">
+            <h2 id="user-product-list-title" class="mb-3">All Products</h2>
+            <div id="user-product-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                <!-- Sản phẩm sẽ được load vào đây bằng JS -->
+            </div>
+            
+            <!-- PHÂN TRANG -->
+            <nav aria-label="Page navigation" class="mt-5">
+                <ul id="pagination-controls" class="pagination justify-content-center"></ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+/* src/main/resources/static/css/custom.css */
+
+.product-card-img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.toast-container {
+    z-index: 1090; /* Đảm bảo toast hiển thị trên modal */
+}
+
+.loading-spinner {
+    display: none; /* Mặc định ẩn spinner */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
