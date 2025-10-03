@@ -8,28 +8,51 @@
 <body>
 <div layout:fragment="content">
     <div class="row">
+        <!-- Cột danh mục -->
         <div class="col-md-4">
             <h2>Categories</h2>
             <ul id="category-list" class="list-group">
                 <li class="list-group-item list-group-item-action active" style="cursor: pointer;">All Products</li>
+                <!-- Danh mục sẽ được render vào đây bằng JS -->
             </ul>
         </div>
+
+        <!-- Cột sản phẩm -->
         <div class="col-md-8">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 id="product-list-title" class="mb-0">All Products</h2>
-                <button id="btn-new-product" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New Product</button>
-            </div>
-            <div id="product-list-container" class="position-relative" style="min-height: 200px;">
-                <div id="product-list" class="row"></div>
-                <div id="loading-spinner" class="loading-spinner justify-content-center align-items-center" style="display: none;">
-                    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+                <!-- Cụm nút hành động -->
+                <div>
+                    <button id="logout-button" class="btn btn-outline-secondary me-2" style="display: none;">
+                        <i class="bi bi-box-arrow-right"></i> Logout
+                    </button>
+                    <button id="btn-new-product" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Add New Product
+                    </button>
                 </div>
             </div>
+            
+            <!-- Vùng chứa sản phẩm và spinner -->
+            <div id="product-list-container" class="position-relative" style="min-height: 300px;">
+                <div id="product-list" class="row">
+                    <!-- Sản phẩm sẽ được load vào đây -->
+                </div>
+                
+                <div id="loading-spinner" class="loading-spinner justify-content-center align-items-center" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vùng chứa phân trang -->
             <nav aria-label="Page navigation" class="mt-4">
                 <ul id="pagination-controls" class="pagination justify-content-center"></ul>
             </nav>
         </div>
     </div>
+
+    <!-- Modal thêm/sửa sản phẩm (Đầy đủ) -->
     <div class="modal fade" id="product-modal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -40,6 +63,7 @@
                 <div class="modal-body">
                     <form id="product-form">
                         <input type="hidden" id="product-id">
+
                         <div class="mb-3">
                             <label for="product-title" class="form-label">Product Name</label>
                             <input type="text" class="form-control" id="product-title" required>

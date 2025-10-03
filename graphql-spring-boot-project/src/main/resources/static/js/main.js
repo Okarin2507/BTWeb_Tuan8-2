@@ -8,7 +8,7 @@ let productModalInstance = null;
 let appToastInstance = null;
 let allUsers = [];
 let allCategoriesData = [];
-
+initializeLogoutButton();
 // Các biến trạng thái cho phân trang
 const pageSize = 4;
 let currentFetchContext = {
@@ -32,9 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
 // CÁC HÀM DÙNG CHUNG (HELPER FUNCTIONS)
 // =================================================================
 
-// Hàm gọi GraphQL API
 async function callGraphQL(query) {
     const token = localStorage.getItem('jwt_token');
+    // Nếu không có token mà không phải trang login, đá về trang login
+    if (!token && window.location.pathname !== '/login' && window.location.pathname !== '/signup') {
+        logout();
+        return;
+    }
+
     const headers = { 'Content-Type': 'application/json' };
     if (token) {
         headers['Authorization'] = `Bearer ${token}`;
@@ -48,9 +53,8 @@ async function callGraphQL(query) {
         });
         const result = await response.json();
         if (result.errors) {
-            console.error("GraphQL Errors:", result.errors);
-            // Tự động logout nếu token hết hạn hoặc không hợp lệ
-            if (result.errors.some(e => e.extensions?.classification === 'UNAUTHORIZED' || e.message.includes("Expired"))) {
+             console.error("GraphQL Errors:", result.errors);
+             if (result.errors.some(e => e.extensions?.classification === 'UNAUTHORIZED' || e.message.includes("Expired"))) {
                 showToast('Your session has expired. Please log in again.', 'Session Expired', 'danger');
                 setTimeout(logout, 2000);
             }
@@ -58,10 +62,9 @@ async function callGraphQL(query) {
         return result;
     } catch (error) {
         console.error("Network or GraphQL call failed:", error);
-        if (appToastInstance) showToast('A network error occurred. Please try again.', 'Network Error', 'danger');
+        if (appToastInstance) showToast('A network error occurred.', 'Network Error', 'danger');
     }
 }
-
 // Hàm hiển thị Toast Notification
 function showToast(message, title = 'Notification', type = 'success') {
     const toastTitle = document.getElementById('toast-title');
@@ -82,11 +85,28 @@ function toggleSpinner(show) {
     if (spinner) spinner.style.display = show ? 'flex' : 'none';
 }
 
-// Hàm đăng xuất
+// HÀM ĐĂNG XUẤT
 function logout() {
     localStorage.removeItem('jwt_token');
     window.location.href = '/login';
 }
+
+// THÊM: HÀM KHỞI TẠO NÚT ĐĂNG XUẤT
+function initializeLogoutButton() {
+    const logoutButton = document.getElementById('logout-button');
+    const token = localStorage.getItem('jwt_token');
+
+    if (logoutButton) {
+        // Chỉ hiện nút logout nếu người dùng đã đăng nhập (có token)
+        if (token) {
+            logoutButton.style.display = 'block';
+            logoutButton.addEventListener('click', logout);
+        } else {
+            logoutButton.style.display = 'none';
+        }
+    }
+}
+
 
 // =================================================================
 // LOGIC TRANG ĐĂNG NHẬP

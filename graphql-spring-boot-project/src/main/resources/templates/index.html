@@ -7,24 +7,29 @@
 </head>
 <body>
 <div layout:fragment="content">
+    <!-- THÊM: Div chứa nút logout ở góc trên bên phải -->
+    <div class="d-flex justify-content-end mb-3">
+        <button id="logout-button" class="btn btn-outline-secondary" style="display: none;">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+    </div>
+
     <div class="row">
-        <!-- CỘT DANH MỤC CHO USER -->
+        <!-- Cột danh mục cho user -->
         <div class="col-md-3">
             <h2>Categories</h2>
             <ul id="user-category-list" class="list-group">
                 <li class="list-group-item list-group-item-action active" style="cursor: pointer;">All Products</li>
-                <!-- Danh mục sẽ được render vào đây bằng JS -->
             </ul>
         </div>
 
-        <!-- CỘT SẢN PHẨM CHO USER -->
+        <!-- Cột sản phẩm cho user -->
         <div class="col-md-9">
             <h2 id="user-product-list-title" class="mb-3">All Products</h2>
             <div id="user-product-list" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <!-- Sản phẩm sẽ được load vào đây bằng JS -->
+                <!-- Sản phẩm sẽ được load vào đây -->
             </div>
             
-            <!-- PHÂN TRANG -->
             <nav aria-label="Page navigation" class="mt-5">
                 <ul id="pagination-controls" class="pagination justify-content-center"></ul>
             </nav>
